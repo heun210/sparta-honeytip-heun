@@ -1,0 +1,23 @@
+{
+  "name": "sparta-honeytip-heun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heun210/sparta-honeytip-heun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heun210/sparta-honeytip-heun/issues"
+  },
+  "homepage": "https://github.com/heun210/sparta-honeytip-heun#readme",
+  "dependencies": {
+    "@react-navigation/stack": "^6.2.1",
+    "expo-status-bar": "^1.2.0"
+  }
+}
