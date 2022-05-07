@@ -1,25 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import main from "./assets/main.png";
+import {
+  StyleSheet,
+  Text,
+  //View,
+  Image,
+  //TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
+  console.disableYellowBox = true;
   return (
-    <View style={styles.container}>
-      <View style={styles.containerOne}></View>
-      <View style={styles.containerTwo}></View>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>나만의 꿀팁</Text>
+      <Image source={main} resizeMode={"cover"} style={styles.mainImage} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor: "#0000",
   },
-  containerOne: {
-    flex: 1,
-    backgroundColor: "red",
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginTop: 60,
+    marginLeft: 15,
   },
-  containerTwo: {
-    flex: 2,
-    backgroundColor: "yellow",
+  mainImage: {
+    width: "90%",
+    height: 200,
+    borderRadius: 10,
+    marginTop: 20,
   },
 });
