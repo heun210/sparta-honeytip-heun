@@ -11,10 +11,11 @@ import {
   SafeAreaView,
 } from "react-native";
 import data from "../data.json";
+import Card from "../components/Card";
 //import { SafeAreaView } from "react-native-web";
 
 export default function MainPage() {
-  //console.disableYellowBox = true;
+  console.disableYellowBox = true;
 
   let tip = data.tip;
   let todayWeather = 10 + 17;
@@ -69,6 +70,7 @@ export default function MainPage() {
         <Text style={styles.cardDate}>2020.09.09</Text>
       </View>
     </View> */}
+          {/* 반복문 */}
           {tip.map((content, i) => {
             return (
               <View style={styles.card} key={i}>
@@ -97,6 +99,10 @@ export default function MainPage() {
                 </View>
               </View>
             );
+          })}
+          {/* 컴포넌트화 */}
+          {tip.map((content, i) => {
+            return <Card content={content} key={i} />;
           })}
         </View>
       </ScrollView>

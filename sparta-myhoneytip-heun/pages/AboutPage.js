@@ -50,12 +50,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#291d6c",
   },
   container: {
-    margin: 30,
+    margin: 20,
     flex: 1,
   },
   textContainer: {
     padding: 10,
     marginBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   title: {
     color: "#fff",
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "700",
     textAlign: "center",
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 55,
+    paddingRight: 55,
     lineHeight: 25,
     marginBottom: 15,
   },
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
-    paddingLeft: 45,
+    paddingLeft: 55,
     paddingRight: 45,
     marginBottom: 20,
   },
@@ -108,6 +110,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 12,
     justifyContent: "center",
+    marginTop: 15,
   },
   btnText: {
     color: "#fff",
