@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import main from "../assets/main.png";
 import {
   StyleSheet,
@@ -12,15 +12,40 @@ import {
 } from "react-native";
 import data from "../data.json";
 import Card from "../components/Card";
+import Loading from "../components/Loading";
 //import { SafeAreaView } from "react-native-web";
 
 export default function MainPage() {
   console.disableYellowBox = true;
+  //return 구문 밖에서는 슬래시 두개 방식으로 주석
 
+  const [state, setState] = useState([]);
+
+  //컴포넌트에 상태를 여러개 만들어도 됨
+  //관리할 상태이름과 함수는 자유자재로 정의할 수 있음
+  //초기 상태값으로 리스트, 참거짓형, 딕셔너리, 숫자, 문자 등등 다양하게 들어갈 수 있음.
+  const [ready, setReady] = useState(true);
+
+  useEffect(() => {
+    //뒤의 1000 숫자는 1초를 뜻함
+    //1초 뒤에 실행되는 코드들이 담겨 있는 함수
+    setTimeout(() => {
+      setState(data);
+      setReady(false);
+    }, 1000);
+  }, []);
+
+  //   let tip = data.tip;
+  //data.json 데이터는 state에 담기므로 상태에서 꺼내옴
   let tip = data.tip;
   let todayWeather = 10 + 17;
   let todayCondition = "흐림";
-  return (
+
+  //처음 ready 상태값은 true 이므로 ? 물음표 바로 뒤에 값이 반환(그려짐)됨
+  //useEffect로 인해 데이터가 준비되고, ready 값이 변경되면 : 콜론 뒤의 값이 반환(그려짐)
+  return ready ? (
+    <Loading />
+  ) : (
     <SafeAreaView style={styles.wrap}>
       <StatusBar style="dark" />
 
