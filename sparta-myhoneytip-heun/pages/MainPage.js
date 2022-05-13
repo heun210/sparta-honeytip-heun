@@ -15,7 +15,7 @@ import Card from "../components/Card";
 import Loading from "../components/Loading";
 //import { SafeAreaView } from "react-native-web";
 
-export default function MainPage() {
+export default function MainPage({ navigation, route }) {
   console.disableYellowBox = true;
 
   // 기존 꿀팁을 저장하고 있을 상태
@@ -32,6 +32,9 @@ export default function MainPage() {
     //뒤의 1000 숫자는 1초를 뜻함
     //1초 뒤에 실행되는 코드들이 담겨 있는 함수
     setTimeout(() => {
+      navigation.setOptions({
+        title: "나만의 꿀팁",
+      });
       //꿀팁 데이터로 모두 초기화 준비
       let tip = data.tip;
       setState(tip);
@@ -61,12 +64,23 @@ export default function MainPage() {
     <Loading />
   ) : (
     <SafeAreaView style={styles.wrap}>
-      <StatusBar style="dark" />
+      <StatusBar backgroundColor="transparent" style="dark-content" />
       <ScrollView style={styles.container}>
-        <Text style={styles.title}>나만의 꿀팁</Text>
-        <Text style={styles.weather}>
-          오늘의 날씨: {todayWeather + "°C " + todayCondition}
-        </Text>
+        {/* <Text style={styles.title}>나만의 꿀팁</Text> */}
+        <View style={styles.top}>
+          <Text style={styles.weather}>
+            오늘 날씨: {todayWeather + "°C " + todayCondition}
+          </Text>
+          <TouchableOpacity
+            style={styles.btnPro}
+            onPress={() => {
+              navigation.navigate("AboutPage");
+            }}
+          >
+            <Text style={styles.btnText}>소개페이지</Text>
+          </TouchableOpacity>
+        </View>
+
         <Image source={main} resizeMode={"cover"} style={styles.mainImage} />
         {/* 중간 버튼 */}
         <ScrollView style={styles.btnScroll} horizontal={true}>
@@ -105,7 +119,7 @@ export default function MainPage() {
           <TouchableOpacity
             style={styles.btn04}
             onPress={() => {
-              category("꿀팁 찜");
+              navigation.navigate("LikePage");
             }}
           >
             <Text style={styles.btnText}>꿀팁 찜</Text>
@@ -171,7 +185,7 @@ export default function MainPage() {
             return <Card content={content} key={i} />;
           })} */}
           {cateState.map((content, i) => {
-            return <Card content={content} key={i} />;
+            return <Card content={content} key={i} navigation={navigation} />;
           })}
         </View>
       </ScrollView>
@@ -186,10 +200,30 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#0000",
     margin: 20,
+    marginTop: 35,
   },
   title: {
     fontSize: 20,
     fontWeight: "700",
+  },
+  top: {
+    width: 110,
+    position: "relative",
+    alignSelf: "flex-end",
+  },
+  weather: {
+    //alignSelf: "flex-end",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 12,
+  },
+  btnPro: {
+    width: 110,
+    height: 40,
+    backgroundColor: "#b4b6c3",
+    justifyContent: "center",
+    borderRadius: 10,
+    alignSelf: "flex-end",
   },
   mainImage: {
     width: "100%",
@@ -204,10 +238,11 @@ const styles = StyleSheet.create({
     height: 60,
     flex: 1,
   },
+
   btnAll: {
     width: 110,
     height: 50,
-    backgroundColor: "#fdc453",
+    backgroundColor: "#6C6B8A",
     borderRadius: 15,
     //flex: 1,
     justifyContent: "center",
@@ -215,7 +250,7 @@ const styles = StyleSheet.create({
   btn01: {
     width: 110,
     height: 50,
-    backgroundColor: "#fdc453",
+    backgroundColor: "#9AAED1",
     borderRadius: 15,
     marginLeft: 10,
     //flex: 1,
@@ -224,7 +259,7 @@ const styles = StyleSheet.create({
   btn02: {
     width: 110,
     height: 50,
-    backgroundColor: "#fe8d6f",
+    backgroundColor: "#D1B3CB",
     borderRadius: 15,
     marginLeft: 10,
     //flex: 1,
@@ -234,7 +269,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 50,
     marginLeft: 10,
-    backgroundColor: "#9adbc5",
+    backgroundColor: "#E8C4C6",
     borderRadius: 15,
 
     //flex: 1,
@@ -244,7 +279,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 50,
     marginLeft: 10,
-    backgroundColor: "#f886a8",
+    backgroundColor: "#EDA2A7",
     borderRadius: 15,
 
     // flex: 1,
@@ -261,7 +296,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   cardContainer: {
-    marginTop: 10,
+    marginTop: 5,
   },
   card: {
     flex: 1,
@@ -279,9 +314,9 @@ const styles = StyleSheet.create({
     flex: 2,
     marginLeft: 10,
     //flexDirection: "column",
-    height: 100,
+    height: 80,
     justifyContent: "center",
-    //alignContent: "center",
+    //alignSelf: "center",
   },
   cardTitle: {
     fontSize: 18,
@@ -292,9 +327,6 @@ const styles = StyleSheet.create({
   },
   cardDate: {
     fontSize: 10,
-    color: "grey",
-  },
-  weather: {
-    alignSelf: "flex-end",
+    color: "#A6A6A6",
   },
 });

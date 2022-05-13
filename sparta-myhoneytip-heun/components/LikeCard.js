@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 //비구조 할당 방식으로 넘긴 속성 데이터를 꺼내 사용함
-export default function Card({ content, navigation }) {
+export default function LikeCard({ content, navigation }) {
   return (
     <TouchableOpacity
       style={styles.cardContainer}
       onPress={() => {
-        navigation.navigate("DetailPage", content);
+        navigation.navigate("MainPage", content);
       }}
     >
       <View style={styles.card}>

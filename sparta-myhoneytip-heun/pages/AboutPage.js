@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -8,8 +8,24 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import * as Linking from "expo-linking";
 
-export default function AboutPage() {
+export default function AboutPage({ navigation, route }) {
+  useEffect(() => {
+    navigation.setOptions({
+      title: "소개 페이지",
+      headerStyle: {
+        backgroundCOlor: "rgba(255,255,255,0.5)",
+      },
+      headerTitleAlign: "lef",
+      headerTintColor: "#fff",
+      headerBackTitleVisible: false,
+      headerTransparent: true,
+    });
+  }, []);
+  const link = () => {
+    Linking.openURL("https://www.instagram.com/_h__0210");
+  };
   return (
     <SafeAreaView style={styles.wrap}>
       <StatusBar style="light" />
@@ -35,7 +51,9 @@ export default function AboutPage() {
               꼭 완주하셔서 꼭 여러분것으로 만들어가시길 바랍니다
             </Text>
             <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnText}>@_h__0210</Text>
+              <Text style={styles.btnText} onPress={() => link()}>
+                @_h__0210
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -51,6 +69,7 @@ const styles = StyleSheet.create({
   },
   container: {
     margin: 20,
+    marginTop: 20,
     flex: 1,
   },
   textContainer: {
