@@ -7,7 +7,7 @@ export default function Card({ content, navigation }) {
     <TouchableOpacity
       style={styles.cardContainer}
       onPress={() => {
-        navigation.navigate("DetailPage", content);
+        navigation.navigate("DetailPage", { idx: content.idx });
       }}
     >
       <View style={styles.card}>

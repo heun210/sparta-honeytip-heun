@@ -16,6 +16,7 @@ import Card from "../components/Card";
 import Loading from "../components/Loading";
 import * as Location from "expo-location";
 import axios from "axios";
+import { firebase_db } from "../firebaseConfig";
 //import { SafeAreaView } from "react-native-web";
 
 export default function MainPage({ navigation, route }) {
@@ -52,11 +53,22 @@ export default function MainPage({ navigation, route }) {
     navigation.setOptions({
       title: "나만의 꿀팁",
     });
-    let tip = data.tip;
+    firebase_db
+      .ref("/tip")
+      .once("value")
+      .then((snapshot) => {
+        console.log("파이어베이스에서 데이터 가져왔습니다.");
+        let tip = snapshot.val();
+        setState(tip);
+        setCateState(tip);
+        getLocation();
+        setReady(false);
+      });
+    /* let tip = data.tip;
     setState(tip);
     setCateState(tip);
     getLocation();
-    setReady(false);
+    setReady(false); */
   }, []);
 
   const getLocation = async () => {
