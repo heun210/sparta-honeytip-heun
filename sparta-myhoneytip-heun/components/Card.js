@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  setTestDeviceIDAsync,
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from "expo-ads-admob";
 
 //비구조 할당 방식으로 넘긴 속성 데이터를 꺼내 사용함
 export default function Card({ content, navigation }) {
+  useEffect(() => {
+    Platform.OS === "ios"
+      ? AdMobInterstitial.setAdUnitID("ca-app-pub-5580582454716866/5762469089")
+      : AdMobInterstitial.setAdUnitID("ca-app-pub-5580582454716866/9154919183");
+
+    AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+      console.log("interstitialDidLoad")
+    );
+    AdMobInterstitial.addEventListener("interstitialDidFailToLoad", () =>
+      console.log("interstitialDidFailToLoad")
+    );
+    AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+      console.log("interstitialDidOpen")
+    );
+    AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+      //광고가 끝나면 다음 코드 줄이 실행!
+      console.log("interstitialDidClose");
+      navigation.navigate("DetailPage", { idx: content.idx });
+    });
+  }, []);
+
+  const goDetail = async () => {
+    try {
+      await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+      await AdMobInterstitial.showAdAsync();
+    } catch (e) {
+      console.log(e);
+    }
+    await navigation.navigate("DetailPage", { idx: content.idx });
+  };
+
   return (
     <TouchableOpacity
       style={styles.cardContainer}
       onPress={() => {
-        navigation.navigate("DetailPage", { idx: content.idx });
+        goDetail();
+        /* navigation.navigate("DetailPage", { idx: content.idx }); */
       }}
     >
       <View style={styles.card}>

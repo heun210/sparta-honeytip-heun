@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Alert,
+  Platform,
 } from "react-native";
 import data from "../data.json";
 import Card from "../components/Card";
@@ -17,7 +18,13 @@ import Loading from "../components/Loading";
 import * as Location from "expo-location";
 import axios from "axios";
 import { firebase_db } from "../firebaseConfig";
-//import { SafeAreaView } from "react-native-web";
+import {
+  setTestDeviceIDAsync,
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from "expo-ads-admob";
 
 export default function MainPage({ navigation, route }) {
   //console.disableYellowBox = true;
@@ -242,6 +249,21 @@ export default function MainPage({ navigation, route }) {
           {cateState.map((content, i) => {
             return <Card content={content} key={i} navigation={navigation} />;
           })}
+          {Platform.OS === "ios" ? (
+            <AdMobBanner
+              bannerSize="fullBanner"
+              servePersonalizedAds={true}
+              adUnitID="ca-app-pub-5580582454716866/5654657877"
+              style={styles.banner}
+            />
+          ) : (
+            <AdMobBanner
+              bannerSize="fullBanner"
+              servePersonalizedAds={true}
+              adUnitID="ca-app-pub-5580582454716866/1177987120"
+              style={styles.banner}
+            />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -383,5 +405,9 @@ const styles = StyleSheet.create({
   cardDate: {
     fontSize: 10,
     color: "#A6A6A6",
+  },
+  banner: {
+    width: "100%",
+    textAlign: "center",
   },
 });

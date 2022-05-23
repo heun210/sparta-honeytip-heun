@@ -12,7 +12,7 @@ import Constants from "expo-constants";
 import { Alert } from "react-native-web";
 
 //비구조 할당 방식으로 넘긴 속성 데이터를 꺼내 사용함
-export default function LikeCard({ content, navigation }) {
+export default function LikeCard({ content, navigation, reload }) {
   const remove = () => {
     const user_id = Constants.installationId;
     firebase_db
@@ -20,14 +20,15 @@ export default function LikeCard({ content, navigation }) {
       .remove()
       .then(function () {
         alert("삭제 완료");
-        navigation.navigate("LikePage");
+        //navigation.navigate("LikePage");
+        reload();
       });
   };
   /* function remove() {
     const user_id = Constants.installationId;
     const editorRef = firebase_db.ref("/like/" + user_id + "/" + content.idx);
     alert("delete");
-    navigation.navigate("MainPage");
+    navigation.navigate("LikePage");
   } */
   return (
     <TouchableOpacity

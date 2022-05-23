@@ -13,6 +13,7 @@ import Card from "../components/Card";
 import Constants from "expo-constants";
 import { firebase_db } from "../firebaseConfig";
 
+
 export default function LikePage({ navigation, route }) {
   console.disableYellowBox = true;
   const [tip, setTip] = useState([]);
@@ -41,13 +42,36 @@ export default function LikePage({ navigation, route }) {
         }
       });
   }, []);
+  const reload = () => {
+    const user_id = Constants.installationId;
+    firebase_db
+      .ref("like/" + user_id)
+      .once("value")
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let tip = snapshot.val();
+          setTip(tip);
+          setReady(false);
+        } else {
+          setReady(true);
+          setTip([]);
+        }
+      });
+  };
 
   return (
     <SafeAreaView style={styles.wrap}>
       <StatusBar style="black" />
       <ScrollView style={styles.container}>
         {tip.map((content, i) => {
-          return <LikeCard content={content} key={i} navigation={navigation} />;
+          return (
+            <LikeCard
+              content={content}
+              key={i}
+              navigation={navigation}
+              reload={reload}
+            />
+          );
         })}
       </ScrollView>
     </SafeAreaView>
